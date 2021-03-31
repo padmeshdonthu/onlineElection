@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="{{ url_for('static',filename='elections.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <title>Cast your vote here!</title>
+    <style>
+        .screenCenter {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        }
+    .alert-error {
+        padding: 8px;
+        background-color: #b71c1c;
+        color: white;
+    }
+
+    </style>
+</head>
+<body class="electionBg">
+<div class="container">
+    <div class="row"></div>
+    {% block content %}
+    {% if session['email_id'] and session['role'] == "USER" %}
+    <div class="card"
+         style="background: linear-gradient(30deg,#fff 40%,#e8f4f8 50%); border-radius:25px;">
+        <div class="card-content">
+            <span class="card-title center-align" style="font-weight:bold">Cast your vote here!</span>
+            <div class="row center-align">
+                {% for message in get_flashed_messages() %}
+                <div class="alert-error">Error: {{ message }}</div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col s10" style="font-weight:bold;">
+                        Election type
+                    </div>
+                    <br/>
+                    <div class="col s10">
+                        {{election.election_type}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s10" style="font-weight:bold;">
+                        Election title
+                    </div>
+                    <br/>
+                    <div class="col s10">
+                        {{election.election_title}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s10" style="font-weight:bold;">
+                        Election text
+                    </div>
+                    <br/>
+                    <div class="col s10">
+                        {{election.election_text}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s10" style="font-weight:bold;">
+                        Election end date
+                    </div>
+                    <br/>
+                    <div class="col s10">
+                        {{election.end_date}}
+                    </div>
+                </div>
+                <div>
+                    <div class="col s10" style="font-weight:bold;">
+                        Choose your candidate!
+                    </div>
+                </div>
+            </div>
+            <form action="/elections/castVote" class="col s12" method="POST">
+                <input id="election_id" name="election_id" type="hidden" value="{{election.election_id}}"/>
+                {%for i in range(0, len)%}
+                <div class="row">
+                    <label style="font-weight:bold;color:#{{(i+8)%10}}{{(i*6)%7}}{{((i+1)*4)%10}}{{(i+1)%3}}{{(i+1)%2}}7">
+                        <input name="candidate_group" required type="radio"
+                               value="{{election.election_candidates[i].candidate_name}}"/>
+                        <span>{{election.election_candidates[i].candidate_name +
+                            " from " + election.election_candidates[i].candidate_party + " Party"}}</span>
+                    </label>
+                </div>
+                {%endfor%}
+                <div class="row">
+                    <label style="font-weight:bold;color:grey">
+                        <input name="candidate_group" required type="radio"
+                               value="None of the above"/>
+                        <span>None of the above</span>
+                    </label>
+                </div>
+                <div class="row center-align">
+                    <div class="col s4 offset-s3">
+                        <button class="btn waves-effect waves-light blue darken-1" name="action"
+                                type="submit">
+                            Cast your vote!
+                            <i class="material-icons right">gavel</i>
+                        </button>
+                    </div>
+                    <div class="col s4">
+                        <a class="btn waves-effect waves-light red darken-1" href="/elections/ongoing">
+                            Do not vote now!
+                            <i class="material-icons right">cancel</i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="screenCenter" style="font-size:xx-large;color:white">
+        <div class="row center-align">
+            You are not authorized to use this system! Please login to continue!!
+        </div>
+        <div class="row center-align">
+            <a class="indigo-text darken-1" href="/login/login"
+               style="text-decoration:underline;">
+                Login here
+            </a>
+        </div>
+    </div>
+    {% endif %}
+    {% endblock content %}
+</div>
+
+</body>
+</html>

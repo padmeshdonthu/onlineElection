@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify your address</title>
+    <link href="{{ url_for('static',filename='registration.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <style type="text/css">
+    .alert-error {
+        padding: 8px;
+        background-color: #b71c1c;
+        color: white;
+    }
+
+
+    </style>
+</head>
+
+<body>
+<div class="container center-align">
+    <div class="row"></div>
+    <div class="row">
+        You would have received an email to the registered email address containing the one-time
+        verification code! Please enter the sent code below:
+    </div>
+    <div class="row">
+        {% for message in get_flashed_messages() %}
+        <div class="alert-error">Error: {{ message }}</div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <form action="/register/verify_email_address" class="col s12" method="POST">
+            <div class="row">
+                <div class="input-field">
+                    <input class="validate" id="code" name="code" required
+                           type="text">
+                    <label for="code">One-time code</label>
+                    <span class="helper-text" data-error="Enter the code"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <button class="btn waves-effect waves-light green darken-1" name="action" type="submit">
+                        Verify your email!
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

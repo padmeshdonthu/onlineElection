@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="{{ url_for('static',filename='elections.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <title>Ongoing election list</title>
+    <style>
+        .screenCenter {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        }
+    .alert-error {
+        padding: 8px;
+        background-color: #b71c1c;
+        color: white;
+    }
+
+
+
+
+    </style>
+</head>
+<body class="electionBg">
+<div>
+    <div class="row"></div>
+    {% block content %}
+    {% if session['email_id'] and session['role'] == "USER" %}
+    <div class="row" style="background: linear-gradient(30deg,#fff 40%,#e8f4f8 50%);">
+        <div class="row"></div>
+        <div class="col s12 card-action right-align">
+            <a class="btn red" href="/login/logout">Logout</a>
+        </div>
+        <div class="row center-align">
+            <div class="col s8 offset-s2">
+                <h1>Your available Ongoing Elections</h1>
+                <br/>
+                <div class="row">
+                    <table class="highlight responsive-table">
+                        <thead>
+                        <tr>
+                            <th>Sl No.</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% if len !=0 %}
+                        {%for i in range(0, len)%}
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td>{{election_list[i].election_title}}</td>
+                            <td>{{election_list[i].election_text}}</td>
+                            <td>{{election_list[i].election_type}}</td>
+                            <td>{{election_list[i].start_date}}</td>
+                            <td>{{election_list[i].end_date}}</td>
+                            <td>
+                                <a class="indigo-text darken-1"
+                                   href="/elections/castVote/{{election_list[i].election_id}}"
+                                   style="text-decoration:underline;">
+                                    Cast your vote!
+                                </a>
+                            </td>
+
+                        </tr>
+                        {%endfor%}
+                        {% else %}
+                        <tr>
+                            <td class="center-align" colspan="7" style="color:red">
+                                No elections are currently available for you to cast a vote!
+                            </td>
+                        </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row center-align">
+                    <a class="btn waves-effect waves-light red darken-1" href="/voterHome/voterHome">
+                        Back to Home
+                        <i class="material-icons left">keyboard_backspace</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="screenCenter" style="font-size:xx-large;color:white">
+        <div class="row center-align">
+            You are not authorized to use this system! Please login to continue!!
+        </div>
+        <div class="row center-align">
+            <a class="indigo-text darken-1" href="/login/login"
+               style="text-decoration:underline;">
+                Login here
+            </a>
+        </div>
+    </div>
+    {% endif %}
+    {% endblock content %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="{{ url_for('static',filename='login.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <style>
+        .screenCenter {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        }
+        .alert_success {
+        padding: 8px;
+        background-color: green;
+        color: white;
+        }
+        /* The close button */
+          .closebtn {
+          margin-left: 15px;
+          color: white;
+          font-weight: bold;
+          float: right;
+          font-size: 22px;
+          line-height: 20px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        /* When moving the mouse over the close button */
+        .closebtn:hover {
+        color: black;
+        }
+
+
+    </style>
+</head>
+
+<body class="loginBg">
+<div>
+    <div class="row"></div>
+    {% block content %}
+    {% if session['email_id'] and session['role'] == "USER" %}
+    <div class="row" style="background: linear-gradient(30deg,#fff 40%,#e8f4f8 50%);">
+        <div class="row"></div>
+        <div class="col s12 card-action right-align">
+            <a class="btn red" href="/login/logout">Logout</a>
+        </div>
+        <div class="row">
+            <div class="row">
+                {% for message in get_flashed_messages() %}
+                <div class="alert_success center-align">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{message}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col s8">
+                <img class="responsive-img" src="../static/images/vote_online.png">
+            </div>
+            <div class="col s4">
+                <h1>Online Voting</h1>
+                <h6>Welcome to E-Voting!!!
+                    A platform to cast your valuable vote remotely and
+                    elect the appropriate person. Save your time of travelling with the
+                    help of our website to cast your vote within your fingertips using any device
+                    (phone, tablet, PC, etc) that has internet of at least 3G speeds. Also, find out
+                    the results of the election within a day after the election deadline is over!!
+                </h6>
+                <br/>
+                <div>
+                    <div class="row center-align">
+                        <a class="waves-effect waves-light btn-small blue" href="/elections/ongoing"><i
+                                class="material-icons left">star_border</i>Ongoing Elections</a>
+                    </div>
+                    <div class="row center-align">
+                        <a class="waves-effect waves-light btn-small green" href="/elections/submitted"><i
+                                class="material-icons left">star_border</i>Submitted Elections</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="screenCenter" style="font-size:xx-large;color:white">
+        <div class="row center-align">
+            You are not authorized to use this system! Please login to continue!!
+        </div>
+        <div class="row center-align">
+            <a class="indigo-text darken-1" href="/login/login"
+               style="text-decoration:underline;">
+                Login here
+            </a>
+        </div>
+    </div>
+    {% endif %}
+    {% endblock content %}
+</div>
+</body>
+</html>

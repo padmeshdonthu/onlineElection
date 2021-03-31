@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link href="{{ url_for('static',filename='login.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+</head>
+
+<body class="loginBg">
+<div class="center-align">
+    <div class="row"></div>
+    <div class="row" style="background: linear-gradient(30deg,#fff 40%,#e8f4f8 50%);">
+        <div class="row"></div>
+        <div class="row">
+            <div class="col s8 offset-s2">
+                <h1>Welcome to E-Voting</h1>
+                <img class="responsive-img" src="../static/images/vote_online.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s8 offset-s2">
+                <h6>
+                    A platform to cast your valuable vote remotely and
+                    elect the appropriate person. Save your time of travelling with the
+                    help of our website to cast your vote within your fingertips using any device
+                    (phone, tablet, PC, etc) that has internet of at least 3G speeds. Also, find out
+                    the results of the election within a day after the election deadline is over!!
+                </h6>
+            </div>
+        </div>
+        <br/>
+        <div class="container">
+            <div class="row center-align">
+                <div class="col s6">
+                    New User?
+                    <a class="waves-effect waves-light btn-small blue" href="/register/register"><i
+                            class="material-icons left">sentiment_very_satisfied</i>Create Account</a>
+                </div>
+                <div class="col s6">
+                    Already a registered user?
+                    <a class="waves-effect waves-light btn-small green" href="/login/login"><i
+                            class="material-icons left">verified_user</i>Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

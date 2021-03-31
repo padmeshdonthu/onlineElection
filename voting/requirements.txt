@@ -1,0 +1,15 @@
+flask
+
+flask_cors
+
+datetime
+
+requests
+
+werkzeug
+
+boto3
+
+botocore
+
+six
