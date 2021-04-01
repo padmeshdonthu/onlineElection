@@ -18,12 +18,7 @@ class SecretManager:
         # Create a Secrets Manager client
         session = boto3.session.Session()
         client = session.client(
-            service_name='secretsmanager',
-            region_name=region_name,
-            aws_access_key_id=access_key_id,
-            aws_secret_access_key=secret_access_key,
-            aws_session_token=session_token
-
+            service_name='secretsmanager'
         )
 
         try:
