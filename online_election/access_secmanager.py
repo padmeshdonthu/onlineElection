@@ -18,7 +18,8 @@ class SecretManager:
         # Create a Secrets Manager client
         session = boto3.session.Session()
         client = session.client(
-            service_name='secretsmanager'
+            service_name='secretsmanager',
+            region_name=region_name
         )
 
         try:
