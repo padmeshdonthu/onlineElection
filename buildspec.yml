@@ -10,4 +10,8 @@ phases:
 artifacts:
   files:
     - '**/*'
+    - 'Dockerfile'
+    - 'requirements.txt'
+    - '.awskeys.ini'
+	
   base-directory: online_election
