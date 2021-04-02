@@ -1,11 +1,13 @@
 version: 0.2
 
+phases:
+  pre_build:
+    commands:
+      - pip install -r requirements.txt
+  build:
+    commands:
+      - python -m unittest discover -s online_election
 artifacts:
-  type: zip
   files:
-    - 'template.yml'
-    - 'scripts/**/*'
-    - 'online_election/**/*.py'
-    - 'appspec.yml'
-    - 'requirements.txt'
-    - 'setup.py'
+    - '**/*'
+  base-directory: online_election
