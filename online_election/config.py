@@ -5,16 +5,15 @@ class ConfigParse:
 
     def fetch_keys(self):
         config = configparser.ConfigParser()
-        config.read('.awskeys.ini')
+        config.read('~/.aws/credentials')
         sections = config.sections()
-        if 'AWSEducateKeys' in sections:
+        if 'default' in sections:
             keys = {}
-            access_key_id = config['AWSEducateKeys']['access_key_id']
-            secret_access_key = config['AWSEducateKeys']['secret_access_key']
-            session_token = config['AWSEducateKeys']['session_token']
-            region_name = config['AWSEducateKeys']['region_name']
+            access_key_id = config['default']['access_key_id']
+            secret_access_key = config['default']['secret_access_key']
+            session_token = config['default']['session_token']
             keys['access_key_id'] = access_key_id
             keys['secret_access_key'] = secret_access_key
             keys['session_token'] = session_token
-            keys['region_name'] = region_name
+            keys['region_name'] = "us-east-1"
             return keys
