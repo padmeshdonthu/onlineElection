@@ -23,9 +23,8 @@ class SecretManager:
             aws_access_key_id=access_key_id,
             aws_secret_access_key=secret_access_key,
             aws_session_token=session_token
-
         )
-
+        
         try:
             get_secret_value_response = client.get_secret_value(
                 SecretId=secret_name
