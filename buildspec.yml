@@ -10,7 +10,7 @@ phases:
 artifacts:
   type: zip
   files:
-   - 'template.yml'
+    - 'template.yml'
     - 'scripts/**/*'
     - 'online_election/**/*.py'
     - 'appspec.yml'
